@@ -1,8 +1,10 @@
 package com.trooper.mvc.objects;
 
-public class Customer {
+import java.io.Serializable;
 
-    private static int id;
+public class Customer implements Serializable {
+
+    private static transient int id;
     private String firstName;
     private String lastName;
     private String address;

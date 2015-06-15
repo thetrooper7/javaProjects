@@ -2,10 +2,12 @@ package com.trooper.mvc.objects;
 
 import com.trooper.mvc.enums.RentalType;
 
-public class Movie {
+import java.io.Serializable;
 
-	private static int id;
-	private String name;
+public class Movie implements Serializable {
+
+    private static transient int id;
+    private String name;
 	private String category;
 	private int year;
 	private RentalType rentalType;

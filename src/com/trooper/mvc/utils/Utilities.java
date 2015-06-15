@@ -13,7 +13,7 @@ public class Utilities {
 
 		DecimalFormat df = new DecimalFormat("#.00");
 		//return Double.valueOf(df.format(rentRate + (rentRate * days)));
-		return Double.valueOf(rentRate + (rentRate * days));
+		return rentRate + (rentRate * days);
 	}
 
 }

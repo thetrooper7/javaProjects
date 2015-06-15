@@ -6,6 +6,7 @@ import com.trooper.mvc.objects.Movie;
 import com.trooper.mvc.objects.RentMovie;
 import com.trooper.mvc.utils.Utilities;
 
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,13 +28,14 @@ public class MyVideoClubTester {
 
 		MyVideoClubTester tester = new MyVideoClubTester();
 		tester.showMenu();
-
-	}
+        tester.saveData();
+    }
 
 	void showMenu() {
         allMovies = new HashMap<Integer, Movie>();
         allCustomers = new HashMap<Integer, Customer>();
         allRentals = new HashMap<Integer, RentMovie>();
+        this.retrieveData();
         selection = -1;
 		while (selection != 0) {
 			System.out.println("MyVideoClub Menu");
@@ -80,6 +82,56 @@ public class MyVideoClubTester {
 			}
 		}
 	}
+
+    void retrieveData() {
+        try {
+            FileInputStream fis;
+            ObjectInputStream ois;
+
+            File f = new File("movies.ser");
+            if (f.exists() && !f.isDirectory()) {
+                fis = new FileInputStream("movies.ser");
+                ois = new ObjectInputStream(fis);
+                allMovies = (HashMap<Integer, Movie>) ois.readObject();
+                fis.close();
+            }
+            f = new File("movies.ser");
+            if (f.exists() && !f.isDirectory()) {
+                fis = new FileInputStream("customers.ser");
+                ois = new ObjectInputStream(fis);
+                allCustomers = (HashMap<Integer, Customer>) ois.readObject();
+                ois.close();
+            }
+            f = new File("movies.ser");
+            if (f.exists() && !f.isDirectory()) {
+                fis = new FileInputStream("rentals.ser");
+                ois = new ObjectInputStream(fis);
+                allRentals = (HashMap<Integer, RentMovie>) ois.readObject();
+                fis.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void saveData() {
+        try {
+            FileOutputStream fos = new FileOutputStream("movies.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(allMovies);
+            oos.close();
+            fos = new FileOutputStream("customers.ser");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(allCustomers);
+            oos.close();
+            fos = new FileOutputStream("rentals.ser");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(allRentals);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 	void addMovie() {
 		String name;
@@ -147,30 +199,30 @@ public class MyVideoClubTester {
 
 	}
 
-	void returnRental() {
-		int rentalID;
-		int daysOfDelay = 0;
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    void returnRental() {
+        int rentalID;
+        int daysOfDelay = 0;
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (Entry<Integer, RentMovie> r : allRentals.entrySet()) {
             System.out.println(r.toString());
 		}
 		System.out.print("Choose Rental ID:");
 		rentalID = keyboard.nextInt();
-		RentMovie r = allRentals.get(rentalID);
+        RentMovie r = allRentals.get(rentalID);
 
-		Utilities util = new Utilities();
+        Utilities util = new Utilities();
 
-		try {
-			long diff = (new Date()).getTime() - dateFormat.parse(r.getRentin()).getTime();
-			daysOfDelay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-			daysOfDelay -= r.getMovie().getRentalType().getValue();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+        try {
+            long diff = (new Date()).getTime() - dateFormat.parse(r.getRentin()).getTime();
+            daysOfDelay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            daysOfDelay -= r.getMovie().getRentalType().getValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-		System.out.println("\nMovie Cost is: " + util.calculateRentPrice(r.getMovie().getRentalType().getPrice(), daysOfDelay) + " Euros\n");
-		r.setRentout(dateFormat.format(new Date()));
-		r.setRentCost(util.calculateRentPrice(r.getMovie().getRentalType().getPrice(), daysOfDelay));
-	}
+        System.out.println("\nMovie Cost is: " + util.calculateRentPrice(r.getMovie().getRentalType().getPrice(), daysOfDelay) + " Euros\n");
+        r.setRentout(dateFormat.format(new Date()));
+        r.setRentCost(util.calculateRentPrice(r.getMovie().getRentalType().getPrice(), daysOfDelay));
+    }
 }

@@ -1,8 +1,10 @@
 package com.trooper.mvc.objects;
 
-public class RentMovie {
-	
-	private static int id;
+import java.io.Serializable;
+
+public class RentMovie implements Serializable {
+
+	private static transient int id;
 	private Movie movie;
 	private Customer customer;
 	private String rentin;
