@@ -69,11 +69,21 @@ public class RentMovie {
 		this.rentCost = rentCost;
 	}
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 	@Override
 	public String toString() {
 		/*return "id:" + this.id + " \nMovie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
 				+ this.rentin;*/
-		return "id:" + getId() + " \nMovie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
-				+ this.rentin;
-	}
+        return "Movie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
+                + this.rentin;
+    }
 }

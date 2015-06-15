@@ -73,6 +73,16 @@ public class Movie {
 		this.numOfCopies = numOfCopies;
 	}
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 	@Override
 	public String toString() {
 		/*return "id:" + this.id + " Title:" + this.name + " Category:" + this.category + " Year:"
