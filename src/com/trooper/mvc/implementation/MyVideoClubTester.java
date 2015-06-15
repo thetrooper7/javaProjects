@@ -4,13 +4,16 @@ import com.trooper.mvc.enums.RentalType;
 import com.trooper.mvc.objects.Customer;
 import com.trooper.mvc.objects.Movie;
 import com.trooper.mvc.objects.RentMovie;
+import com.trooper.mvc.utils.Utilities;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class MyVideoClubTester {
 
@@ -72,7 +75,7 @@ public class MyVideoClubTester {
 				}
 				break;
 			case 7:
-				System.out.println("hi");
+				this.returnRental();
 				break;
 			}
 		}
@@ -143,13 +146,31 @@ public class MyVideoClubTester {
         allRentals.put(r.getId(), r);
 
 	}
-	
-	void removeRental(){
+
+	void returnRental() {
 		int rentalID;
+		int daysOfDelay = 0;
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         for (Entry<Integer, RentMovie> r : allRentals.entrySet()) {
             System.out.println(r.toString());
 		}
 		System.out.print("Choose Rental ID:");
 		rentalID = keyboard.nextInt();
+		RentMovie r = allRentals.get(rentalID);
+
+		Utilities util = new Utilities();
+
+		try {
+			long diff = (new Date()).getTime() - dateFormat.parse(r.getRentin()).getTime();
+			daysOfDelay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			daysOfDelay -= r.getMovie().getRentalType().getValue();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("\nMovie Cost is: " + util.calculateRentPrice(r.getMovie().getRentalType().getPrice(), daysOfDelay) + " Euros\n");
+		r.setRentout(dateFormat.format(new Date()));
+		r.setRentCost(util.calculateRentPrice(r.getMovie().getRentalType().getPrice(), daysOfDelay));
 	}
 }

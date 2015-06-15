@@ -84,6 +84,6 @@ public class RentMovie {
 		/*return "id:" + this.id + " \nMovie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
 				+ this.rentin;*/
         return "Movie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
-                + this.rentin;
-    }
+				+ this.rentin + " \nDate of Return:" + this.rentout + " \nCost:" + this.getRentCost();
+	}
 }
