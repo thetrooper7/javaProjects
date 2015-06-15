@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class RentMovie implements Serializable {
 
-	private static transient int id;
 	private Movie movie;
 	private Customer customer;
 	private String rentin;
@@ -17,18 +16,9 @@ public class RentMovie implements Serializable {
 
 	public RentMovie(Movie movie, Customer customer, String rentin) {
 		super();
-		setId(getId() + 1);
 		this.movie = movie;
 		this.customer = customer;
 		this.rentin = rentin;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Movie getMovie() {
@@ -83,8 +73,6 @@ public class RentMovie implements Serializable {
 
 	@Override
 	public String toString() {
-		/*return "id:" + this.id + " \nMovie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
-				+ this.rentin;*/
         return "Movie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
 				+ this.rentin + " \nDate of Return:" + this.rentout + " \nCost:" + this.getRentCost();
 	}

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Customer implements Serializable {
 
-    private static transient int id;
     private String firstName;
     private String lastName;
     private String address;
@@ -17,19 +16,10 @@ public class Customer implements Serializable {
     public Customer(String firstName, String lastName, String address,
                     String phone) {
         super();
-        setId(getId() + 1);
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -76,8 +66,6 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        /*return "id:" + this.id + " FirstName:" + this.firstName + " LastName:" + this.lastName + " Address:"
-                + this.address + " Phone:" + this.phone;*/
         return " FirstName:" + this.firstName + " LastName:" + this.lastName + " Address:"
                 + this.address + " Phone:" + this.phone;
     }

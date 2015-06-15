@@ -76,8 +76,6 @@ public class Movie implements Serializable {
 
 	@Override
 	public String toString() {
-		/*return "id:" + this.id + " Title:" + this.name + " Category:" + this.category + " Year:"
-				+ this.year + " RentalType:" + this.rentalType;*/
 		return " Title:" + this.name + " Category:" + this.category + " Year:"
 				+ this.year + " RentalType:" + this.rentalType;
 	}
