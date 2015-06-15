@@ -1,25 +1,24 @@
 package com.trooper.mvc.implementation;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
-
 import com.trooper.mvc.enums.RentalType;
 import com.trooper.mvc.objects.Customer;
 import com.trooper.mvc.objects.Movie;
 import com.trooper.mvc.objects.RentMovie;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Scanner;
+
 public class MyVideoClubTester {
 
-	private List<Movie> allMovies;
-	private List<Customer> allCustomers;
-	private List<RentMovie> allRentals;
-	private int selection;
-
 	Scanner keyboard = new Scanner(System.in);
+    private HashMap<Integer, Movie> allMovies;
+    private HashMap<Integer, Customer> allCustomers;
+    private HashMap<Integer, RentMovie> allRentals;
+    private int selection;
 
 	public static void main(String[] args) {
 
@@ -29,10 +28,10 @@ public class MyVideoClubTester {
 	}
 
 	void showMenu() {
-		allMovies = new ArrayList<Movie>();
-		allCustomers = new ArrayList<Customer>();
-		allRentals = new ArrayList<RentMovie>();
-		selection = -1;
+        allMovies = new HashMap<Integer, Movie>();
+        allCustomers = new HashMap<Integer, Customer>();
+        allRentals = new HashMap<Integer, RentMovie>();
+        selection = -1;
 		while (selection != 0) {
 			System.out.println("MyVideoClub Menu");
 			System.out.println("----------------");
@@ -55,21 +54,21 @@ public class MyVideoClubTester {
 				this.addCustomer();
 				break;
 			case 3:
-				for (Movie m : allMovies) {
-					System.out.println(m.toString());
+                for (Entry<Integer, Movie> m : allMovies.entrySet()) {
+                    System.out.println(m.toString());
 				}
 				break;
 			case 4:
-				for (Customer c : allCustomers) {
-					System.out.println(c.toString());
+                for (Entry<Integer, Customer> c : allCustomers.entrySet()) {
+                    System.out.println(c.toString());
 				}
 				break;
 			case 5:
 				this.addRental();
 				break;
 			case 6:
-				for (RentMovie r : allRentals) {
-					System.out.println(r.toString());
+                for (Entry<Integer, RentMovie> r : allRentals.entrySet()) {
+                    System.out.println(r.toString());
 				}
 				break;
 			case 7:
@@ -101,8 +100,8 @@ public class MyVideoClubTester {
 			rentalType = RentalType.ThreeDay;
 		Movie m = new Movie(name, category, year, rentalType);
 		System.out.println(m.toString());
-		allMovies.add(m);
-	}
+        allMovies.put(m.getId(), m);
+    }
 
 	void addCustomer() {
 		String firstName;
@@ -119,36 +118,36 @@ public class MyVideoClubTester {
 		phone = keyboard.next();
 		Customer c = new Customer(firstName, lastName, address, phone);
 		System.out.println(c.toString());
-		allCustomers.add(c);
-	}
+        allCustomers.put(c.getId(), c);
+    }
 
 	void addRental() {
 		int movieID;
 		int customerID;
-		for (Movie m : allMovies) {
-			System.out.println(m.toString());
+        for (Entry<Integer, Movie> m : allMovies.entrySet()) {
+            System.out.println(m.toString());
 		}
 		System.out.print("Choose Movie ID:");
 		movieID = keyboard.nextInt();
 
-		for (Customer c : allCustomers) {
-			System.out.println(c.toString());
+        for (Entry<Integer, Customer> c : allCustomers.entrySet()) {
+            System.out.println(c.toString());
 		}
 		System.out.print("Choose Customer ID:");
 		customerID = keyboard.nextInt();
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		RentMovie r = new RentMovie(allMovies.get(movieID - 1),
-				allCustomers.get(customerID - 1), dateFormat.format(new Date()));
-		System.out.println(r.toString());
-		allRentals.add(r);
+        RentMovie r = new RentMovie(allMovies.get(movieID),
+                allCustomers.get(customerID), dateFormat.format(new Date()));
+        System.out.println(r.toString());
+        allRentals.put(r.getId(), r);
 
 	}
 	
 	void removeRental(){
 		int rentalID;
-		for (RentMovie r : allRentals) {
-			System.out.println(r.toString());
+        for (Entry<Integer, RentMovie> r : allRentals.entrySet()) {
+            System.out.println(r.toString());
 		}
 		System.out.print("Choose Rental ID:");
 		rentalID = keyboard.nextInt();

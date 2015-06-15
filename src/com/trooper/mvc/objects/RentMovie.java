@@ -1,7 +1,5 @@
 package com.trooper.mvc.objects;
 
-import java.util.Date;
-
 public class RentMovie {
 	
 	private static int id;
@@ -17,7 +15,7 @@ public class RentMovie {
 
 	public RentMovie(Movie movie, Customer customer, String rentin) {
 		super();
-		this.id = this.id + 1;
+		setId(getId() + 1);
 		this.movie = movie;
 		this.customer = customer;
 		this.rentin = rentin;
@@ -73,7 +71,9 @@ public class RentMovie {
 
 	@Override
 	public String toString() {
-		return "id:" + this.id + " \nMovie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
+		/*return "id:" + this.id + " \nMovie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
+				+ this.rentin;*/
+		return "id:" + getId() + " \nMovie:" + this.movie.toString() + " \nCustomer:" + this.customer.toString() + " \nDate of Rent:"
 				+ this.rentin;
 	}
 }

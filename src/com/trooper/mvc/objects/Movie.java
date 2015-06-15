@@ -18,7 +18,7 @@ public class Movie {
 	public Movie(String name, String category, int year,
 			RentalType rentalType) {
 		super();
-		this.id = this.id + 1;
+		setId(getId() + 1);
 		this.name = name;
 		this.category = category;
 		this.year = year;
@@ -75,7 +75,9 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return "id:" + this.id + " Title:" + this.name + " Category:" + this.category + " Year:"
+		/*return "id:" + this.id + " Title:" + this.name + " Category:" + this.category + " Year:"
+				+ this.year + " RentalType:" + this.rentalType;*/
+		return " Title:" + this.name + " Category:" + this.category + " Year:"
 				+ this.year + " RentalType:" + this.rentalType;
 	}
 
