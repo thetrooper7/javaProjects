@@ -5,8 +5,6 @@ import com.trooper.mvc.enums.RentalType;
 import java.io.Serializable;
 
 public class Movie implements Serializable {
-
-    private static transient int id;
     private String name;
 	private String category;
 	private int year;
@@ -20,19 +18,10 @@ public class Movie implements Serializable {
 	public Movie(String name, String category, int year,
 			RentalType rentalType) {
 		super();
-		setId(getId() + 1);
 		this.name = name;
 		this.category = category;
 		this.year = year;
 		this.rentalType = rentalType;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {

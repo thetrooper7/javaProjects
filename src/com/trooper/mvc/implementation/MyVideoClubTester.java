@@ -19,23 +19,26 @@ import java.util.concurrent.TimeUnit;
 public class MyVideoClubTester {
 
 	Scanner keyboard = new Scanner(System.in);
-    private HashMap<Integer, Movie> allMovies;
-    private HashMap<Integer, Customer> allCustomers;
-    private HashMap<Integer, RentMovie> allRentals;
+    private HashMap<Integer, Movie> allMovies = new HashMap<Integer, Movie>();
+    private HashMap<Integer, Customer> allCustomers = new HashMap<Integer, Customer>();
+    private HashMap<Integer, RentMovie> allRentals = new HashMap<Integer, RentMovie>();
     private int selection;
+    private int maxMovieNum;
+    private int maxCustomerNum;
+    private int maxRentalsNum;
 
 	public static void main(String[] args) {
 
 		MyVideoClubTester tester = new MyVideoClubTester();
-		tester.showMenu();
+        tester.retrieveData();
+        tester.maxMovieNum = tester.allMovies.size();
+        tester.maxCustomerNum = tester.allCustomers.size();
+        tester.maxRentalsNum = tester.allRentals.size();
+        tester.showMenu();
         tester.saveData();
     }
 
 	void showMenu() {
-        allMovies = new HashMap<Integer, Movie>();
-        allCustomers = new HashMap<Integer, Customer>();
-        allRentals = new HashMap<Integer, RentMovie>();
-        this.retrieveData();
         selection = -1;
 		while (selection != 0) {
 			System.out.println("MyVideoClub Menu");
@@ -155,7 +158,7 @@ public class MyVideoClubTester {
 			rentalType = RentalType.ThreeDay;
 		Movie m = new Movie(name, category, year, rentalType);
 		System.out.println(m.toString());
-        allMovies.put(m.getId(), m);
+        allMovies.put(++this.maxMovieNum, m);
     }
 
 	void addCustomer() {
@@ -173,7 +176,7 @@ public class MyVideoClubTester {
 		phone = keyboard.next();
 		Customer c = new Customer(firstName, lastName, address, phone);
 		System.out.println(c.toString());
-        allCustomers.put(c.getId(), c);
+        allCustomers.put(++this.maxCustomerNum, c);
     }
 
 	void addRental() {
@@ -195,7 +198,7 @@ public class MyVideoClubTester {
         RentMovie r = new RentMovie(allMovies.get(movieID),
                 allCustomers.get(customerID), dateFormat.format(new Date()));
         System.out.println(r.toString());
-        allRentals.put(r.getId(), r);
+        allRentals.put(++this.maxRentalsNum, r);
 
 	}
 
