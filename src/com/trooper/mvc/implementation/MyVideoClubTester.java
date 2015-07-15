@@ -98,14 +98,14 @@ public class MyVideoClubTester {
                 allMovies = (HashMap<Integer, Movie>) ois.readObject();
                 fis.close();
             }
-            f = new File("movies.ser");
+            f = new File("customers.ser");
             if (f.exists() && !f.isDirectory()) {
                 fis = new FileInputStream("customers.ser");
                 ois = new ObjectInputStream(fis);
                 allCustomers = (HashMap<Integer, Customer>) ois.readObject();
                 ois.close();
             }
-            f = new File("movies.ser");
+            f = new File("rentals.ser");
             if (f.exists() && !f.isDirectory()) {
                 fis = new FileInputStream("rentals.ser");
                 ois = new ObjectInputStream(fis);
